@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import useWindowWidth from '../hooks/useWindowWidth';
 
 const IllustrationRates = () => (
   <svg viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
@@ -73,15 +74,16 @@ const cards = [
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const isMobile = useWindowWidth() < 768;
 
   return (
     <div style={styles.page}>
       <Header />
-      <main style={styles.main}>
-        <h1 style={styles.welcome}>Welcome back, Sarah</h1>
+      <main style={{ ...styles.main, padding: isMobile ? '32px 16px' : '56px 32px' }}>
+        <h1 style={{ ...styles.welcome, fontSize: isMobile ? '22px' : '28px' }}>Welcome back, Sarah</h1>
         <p style={styles.subtitle}>Choose a workspace to get started.</p>
 
-        <div style={styles.cards}>
+        <div style={{ ...styles.cards, flexDirection: isMobile ? 'column' : 'row' }}>
           {cards.map(card => (
             <CardItem key={card.route} card={card} onClick={() => navigate(card.route)} />
           ))}

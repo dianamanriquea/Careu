@@ -2,10 +2,12 @@ import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { products, feeSchedules, calculate } from '../data/seedData';
+import useWindowWidth from '../hooks/useWindowWidth';
 
 const STATES = ['CA', 'NY', 'TX', 'FL', 'WA'];
 
 export default function OrderCalculator() {
+  const isMobile = useWindowWidth() < 768;
   const navigate = useNavigate();
   const [form, setForm] = useState({
     patientName: '',
@@ -55,12 +57,12 @@ export default function OrderCalculator() {
             <h1 style={styles.title}>Order Calculator</h1>
             <p style={styles.subtitle}>Enter order details to see margin and patient responsibility update live.</p>
           </div>
-          <HeroIllustration />
+          {!isMobile && <HeroIllustration />}
         </div>
       </div>
 
-      <main style={styles.main}>
-        <div style={styles.layout}>
+      <main style={{ ...styles.main, padding: isMobile ? '24px 16px' : '32px' }}>
+        <div style={{ ...styles.layout, flexDirection: isMobile ? 'column' : 'row' }}>
 
           {/* Form */}
           <div style={styles.formCard}>
@@ -115,7 +117,7 @@ export default function OrderCalculator() {
           </div>
 
           {/* Calculation panel */}
-          <div style={styles.calcCard}>
+          <div style={{ ...styles.calcCard, width: isMobile ? '100%' : '340px' }}>
             <h2 style={styles.sectionTitle}>Live Calculation</h2>
 
             {calc ? (

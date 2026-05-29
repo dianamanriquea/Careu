@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { generateEncounterForm, generatePatientInvoice, generatePOD } from '../utils/generateDocuments';
+import useWindowWidth from '../hooks/useWindowWidth';
 
 export default function OrderResult() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const [toast, setToast] = useState('');
+  const isMobile = useWindowWidth() < 768;
 
   if (!state) {
     navigate('/order-calculator');
@@ -46,8 +48,8 @@ export default function OrderResult() {
         </div>
       </div>
 
-      <main style={styles.main}>
-        <div style={styles.layout}>
+      <main style={{ ...styles.main, padding: isMobile ? '24px 16px' : '32px' }}>
+        <div style={{ ...styles.layout, flexDirection: isMobile ? 'column' : 'row' }}>
 
           {/* Left column */}
           <div style={styles.leftCol}>
@@ -90,7 +92,7 @@ export default function OrderResult() {
           </div>
 
           {/* Right column — documents */}
-          <div style={styles.rightCol}>
+          <div style={{ ...styles.rightCol, width: isMobile ? '100%' : '340px' }}>
             <div style={styles.card}>
               <h2 style={styles.cardTitle}>Generate Documents</h2>
               <p style={styles.docsSubtitle}>Select a document to generate for this order.</p>

@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import Header from '../components/Header';
 import { products as initProducts, feeSchedules as initSchedules, vendors as initVendors } from '../data/seedData';
+import useWindowWidth from '../hooks/useWindowWidth';
 
 const TABS = ['Products', 'Fee Schedules', 'Vendors'];
 
 export default function FeeManagement() {
+  const isMobile = useWindowWidth() < 768;
   const [activeTab, setActiveTab] = useState('Products');
   const [search, setSearch] = useState('');
   const [products, setProducts] = useState(initProducts);
@@ -45,16 +47,16 @@ export default function FeeManagement() {
 
       {/* Page hero */}
       <div style={styles.hero}>
-        <div style={styles.heroInner}>
+        <div style={{ ...styles.heroInner, padding: isMobile ? '24px 16px' : '36px 32px' }}>
           <div style={styles.heroText}>
             <h1 style={styles.title}>Fee Management</h1>
             <p style={styles.subtitle}>Update product pricing, payer fee schedules, and vendor terms.</p>
           </div>
-          <HeroIllustration />
+          {!isMobile && <HeroIllustration />}
         </div>
       </div>
 
-      <main style={styles.main}>
+      <main style={{ ...styles.main, padding: isMobile ? '24px 16px' : '32px' }}>
         {/* Search + tabs */}
         <div style={styles.toolbar}>
           <div style={styles.searchWrap}>
@@ -86,7 +88,7 @@ export default function FeeManagement() {
           ))}
         </div>
 
-        <div style={styles.tableCard}>
+        <div style={{ ...styles.tableCard, overflowX: 'auto' }}>
           {activeTab === 'Products' && (
             <Table
               headers={['ID', 'Product', 'SKU', 'Category', 'Cost', '']}
