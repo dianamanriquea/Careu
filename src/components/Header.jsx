@@ -76,11 +76,11 @@ const styles = {
     maxWidth: '1200px', margin: '0 auto', padding: '0 20px',
     height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
   },
-  nav: { display: 'flex', alignItems: 'center', gap: '32px' },
+  nav: { alignItems: 'center', gap: '32px' },
   navLink: { textDecoration: 'none', fontSize: '14px', transition: 'color 0.15s' },
   divider: { width: '1px', height: '20px', background: '#E2E8F0' },
   user: { fontSize: '14px', fontWeight: '600', color: '#0F172A' },
-  hamburger: { background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '4px' },
+  hamburger: { background: 'none', border: 'none', cursor: 'pointer', alignItems: 'center', padding: '4px' },
   mobileMenu: {
     background: '#FFFFFF', borderBottom: '1px solid #E2E8F0',
     boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
