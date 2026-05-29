@@ -57,12 +57,12 @@ export default function OrderCalculator() {
             <h1 style={styles.title}>Order Calculator</h1>
             <p style={styles.subtitle}>Enter order details to see margin and patient responsibility update live.</p>
           </div>
-          {!isMobile && <HeroIllustration />}
+          <span className="hide-mobile"><HeroIllustration /></span>
         </div>
       </div>
 
-      <main style={{ ...styles.main, padding: isMobile ? '24px 16px' : '32px' }}>
-        <div style={{ ...styles.layout, flexDirection: isMobile ? 'column' : 'row' }}>
+      <main style={styles.main} className="page-main">
+        <div style={styles.layout} className="two-col-layout">
 
           {/* Form */}
           <div style={styles.formCard}>
@@ -117,7 +117,7 @@ export default function OrderCalculator() {
           </div>
 
           {/* Calculation panel */}
-          <div style={{ ...styles.calcCard, width: isMobile ? '100%' : '340px', flexShrink: isMobile ? 1 : 0, minWidth: 0 }}>
+          <div style={styles.calcCard}>
             <h2 style={styles.sectionTitle}>Live Calculation</h2>
 
             {calc ? (

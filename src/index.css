@@ -41,3 +41,39 @@ button {
 input, select, textarea {
   font-family: 'DM Sans', sans-serif;
 }
+
+/* Responsive utilities */
+@media (max-width: 767px) {
+  .two-col-layout {
+    flex-direction: column !important;
+  }
+  .two-col-layout > * {
+    width: 100% !important;
+    flex-shrink: 1 !important;
+    min-width: 0 !important;
+  }
+  .hide-mobile {
+    display: none !important;
+  }
+  .nav-desktop {
+    display: none !important;
+  }
+  .nav-hamburger {
+    display: flex !important;
+  }
+  .hero-inner {
+    padding: 20px 16px !important;
+  }
+  .page-main {
+    padding: 20px 16px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .nav-hamburger {
+    display: none !important;
+  }
+  .mobile-menu {
+    display: none !important;
+  }
+}

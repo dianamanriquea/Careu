@@ -48,8 +48,8 @@ export default function OrderResult() {
         </div>
       </div>
 
-      <main style={{ ...styles.main, padding: isMobile ? '24px 16px' : '32px' }}>
-        <div style={{ ...styles.layout, flexDirection: isMobile ? 'column' : 'row' }}>
+      <main style={styles.main} className="page-main">
+        <div style={styles.layout} className="two-col-layout">
 
           {/* Left column */}
           <div style={styles.leftCol}>
@@ -92,7 +92,7 @@ export default function OrderResult() {
           </div>
 
           {/* Right column — documents */}
-          <div style={{ ...styles.rightCol, width: isMobile ? '100%' : '340px' }}>
+          <div style={styles.rightCol}>
             <div style={styles.card}>
               <h2 style={styles.cardTitle}>Generate Documents</h2>
               <p style={styles.docsSubtitle}>Select a document to generate for this order.</p>
