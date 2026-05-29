@@ -1,17 +1,15 @@
 import { useState } from 'react';
 import Header from '../components/Header';
-import { products as initProducts, feeSchedules as initSchedules, vendors as initVendors } from '../data/seedData';
+import { useApp } from '../context/AppContext';
 import useWindowWidth from '../hooks/useWindowWidth';
 
 const TABS = ['Products', 'Fee Schedules', 'Vendors'];
 
 export default function FeeManagement() {
   const isMobile = useWindowWidth() < 768;
+  const { products, setProducts, schedules, setSchedules, vendors, setVendors } = useApp();
   const [activeTab, setActiveTab] = useState('Products');
   const [search, setSearch] = useState('');
-  const [products, setProducts] = useState(initProducts);
-  const [schedules, setSchedules] = useState(initSchedules);
-  const [vendors, setVendors] = useState(initVendors);
   const [modal, setModal] = useState(null);
 
   function openModal(type, id, value) {
@@ -49,7 +47,7 @@ export default function FeeManagement() {
       <div style={styles.hero}>
         <div style={{ ...styles.heroInner, padding: isMobile ? '24px 16px' : '36px 32px' }}>
           <div style={styles.heroText}>
-            <h1 style={styles.title}>Fee Management</h1>
+            <h1 style={styles.title}>Edit Rates</h1>
             <p style={styles.subtitle}>Update product pricing, payer fee schedules, and vendor terms.</p>
           </div>
           {!isMobile && <HeroIllustration />}

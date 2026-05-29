@@ -1,13 +1,15 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import { products, feeSchedules, calculate } from '../data/seedData';
+import { calculate } from '../data/seedData';
+import { useApp } from '../context/AppContext';
 import useWindowWidth from '../hooks/useWindowWidth';
 
 const STATES = ['CA', 'NY', 'TX', 'FL', 'WA'];
 
 export default function OrderCalculator() {
   const isMobile = useWindowWidth() < 768;
+  const { products, schedules: feeSchedules } = useApp();
   const navigate = useNavigate();
   const [form, setForm] = useState({
     patientName: '',

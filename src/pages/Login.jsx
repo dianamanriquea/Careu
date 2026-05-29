@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../components/Logo';
+import { useApp } from '../context/AppContext';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { login } = useApp();
 
   function handleLogin(e) {
     e.preventDefault();
     if (email === 'demo@careu.com' && password === 'careu2025') {
+      login();
       navigate('/dashboard');
     } else {
       setError('Invalid credentials. Use the default access below.');
