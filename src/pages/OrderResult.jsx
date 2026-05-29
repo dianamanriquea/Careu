@@ -3,12 +3,16 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { generateEncounterForm, generatePatientInvoice, generatePOD } from '../utils/generateDocuments';
 import useWindowWidth from '../hooks/useWindowWidth';
+import { useApp } from '../context/AppContext';
 
 export default function OrderResult() {
-  const { state } = useLocation();
+  const { state: routeState } = useLocation();
+  const { lastOrder } = useApp();
   const navigate = useNavigate();
   const [toast, setToast] = useState('');
   const isMobile = useWindowWidth() < 768;
+
+  const state = routeState || lastOrder;
 
   if (!state) {
     navigate('/order-calculator');

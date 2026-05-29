@@ -9,7 +9,7 @@ const STATES = ['CA', 'NY', 'TX', 'FL', 'WA'];
 
 export default function OrderCalculator() {
   const isMobile = useWindowWidth() < 768;
-  const { products, schedules: feeSchedules } = useApp();
+  const { products, schedules: feeSchedules, setLastOrder } = useApp();
   const navigate = useNavigate();
   const [form, setForm] = useState({
     patientName: '',
@@ -33,17 +33,17 @@ export default function OrderCalculator() {
   function handleGenerate(e) {
     e.preventDefault();
     if (!form.patientName || !selectedProduct || !selectedSchedule || !form.state) return;
-    navigate('/order-result', {
-      state: {
-        patient: form.patientName,
-        payer: selectedSchedule.payer,
-        product: selectedProduct.name,
-        vendor: selectedProduct.vendor,
-        state: form.state,
-        calc,
-        orderNumber: `CU-${Math.floor(1000 + Math.random() * 9000)}`,
-      },
-    });
+    const order = {
+      patient: form.patientName,
+      payer: selectedSchedule.payer,
+      product: selectedProduct.name,
+      vendor: selectedProduct.vendor,
+      state: form.state,
+      calc,
+      orderNumber: `CU-${Math.floor(1000 + Math.random() * 9000)}`,
+    };
+    setLastOrder(order);
+    navigate('/order-result', { state: order });
   }
 
   const canSubmit = form.patientName && form.productId && form.feeScheduleId && form.state;
