@@ -19,6 +19,7 @@ const AppContext = createContext(null);
 export function AppProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(() => localStorage.getItem('careu_auth') === 'true');
   const [lastOrder, setLastOrderState] = useState(() => load('careu_last_order', null));
+  const [orders, setOrdersState] = useState(() => load('careu_orders', []));
   const [products, setProductsState] = useState(() => load('careu_products', seedProducts));
   const [schedules, setSchedulesState] = useState(() => load('careu_schedules', seedSchedules));
   const [vendors, setVendorsState] = useState(() => load('careu_vendors', seedVendors));
@@ -36,6 +37,9 @@ export function AppProvider({ children }) {
   function setLastOrder(order) {
     save('careu_last_order', order);
     setLastOrderState(order);
+    const next = [{ ...order, createdAt: new Date().toISOString() }, ...orders];
+    save('careu_orders', next);
+    setOrdersState(next);
   }
 
   function setProducts(updater) {
@@ -57,7 +61,7 @@ export function AppProvider({ children }) {
   }
 
   return (
-    <AppContext.Provider value={{ isLoggedIn, login, logout, products, setProducts, schedules, setSchedules, vendors, setVendors, lastOrder, setLastOrder }}>
+    <AppContext.Provider value={{ isLoggedIn, login, logout, products, setProducts, schedules, setSchedules, vendors, setVendors, lastOrder, setLastOrder, orders }}>
       {children}
     </AppContext.Provider>
   );
