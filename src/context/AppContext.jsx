@@ -33,27 +33,21 @@ export function AppProvider({ children }) {
   }
 
   function setProducts(updater) {
-    setProductsState(prev => {
-      const next = typeof updater === 'function' ? updater(prev) : updater;
-      save('careu_products', next);
-      return next;
-    });
+    const next = typeof updater === 'function' ? updater(products) : updater;
+    save('careu_products', next);
+    setProductsState(next);
   }
 
   function setSchedules(updater) {
-    setSchedulesState(prev => {
-      const next = typeof updater === 'function' ? updater(prev) : updater;
-      save('careu_schedules', next);
-      return next;
-    });
+    const next = typeof updater === 'function' ? updater(schedules) : updater;
+    save('careu_schedules', next);
+    setSchedulesState(next);
   }
 
   function setVendors(updater) {
-    setVendorsState(prev => {
-      const next = typeof updater === 'function' ? updater(prev) : updater;
-      save('careu_vendors', next);
-      return next;
-    });
+    const next = typeof updater === 'function' ? updater(vendors) : updater;
+    save('careu_vendors', next);
+    setVendorsState(next);
   }
 
   return (
