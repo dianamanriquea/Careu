@@ -42,38 +42,54 @@ input, select, textarea {
   font-family: 'DM Sans', sans-serif;
 }
 
-/* Responsive utilities */
-@media (max-width: 767px) {
-  .two-col-layout {
-    flex-direction: column !important;
-  }
-  .two-col-layout > * {
-    width: 100% !important;
-    flex-shrink: 1 !important;
-    min-width: 0 !important;
-  }
-  .hide-mobile {
-    display: none !important;
-  }
-  .nav-desktop {
-    display: none !important;
-  }
-  .nav-hamburger {
-    display: flex !important;
-  }
-  .hero-inner {
-    padding: 20px 16px !important;
-  }
-  .page-main {
-    padding: 20px 16px !important;
-  }
+/* Layout */
+.two-col-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: flex-start;
+}
+.two-col-layout .form-card {
+  flex: 1;
+  min-width: 0;
+}
+.two-col-layout .calc-card {
+  width: 340px;
+  flex-shrink: 0;
+}
+.two-col-layout .left-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.two-col-layout .right-col {
+  width: 340px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-@media (min-width: 768px) {
-  .nav-hamburger {
-    display: none !important;
+/* Header */
+.nav-desktop { display: flex; align-items: center; gap: 32px; }
+.nav-hamburger { display: none; }
+.mobile-menu { display: none; }
+
+@media (max-width: 767px) {
+  .two-col-layout {
+    flex-direction: column;
   }
-  .mobile-menu {
-    display: none !important;
+  .two-col-layout .calc-card,
+  .two-col-layout .right-col {
+    width: 100%;
+    flex-shrink: 1;
   }
+  .hide-mobile { display: none; }
+  .nav-desktop { display: none; }
+  .nav-hamburger { display: flex; }
+  .mobile-menu { display: block; }
+  .page-main { padding: 20px 16px; }
+  .hero-inner { padding: 20px 16px; }
 }

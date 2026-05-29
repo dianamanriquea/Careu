@@ -65,7 +65,7 @@ export default function OrderCalculator() {
         <div style={styles.layout} className="two-col-layout">
 
           {/* Form */}
-          <div style={styles.formCard}>
+          <div style={styles.formCard} className="form-card">
             <h2 style={styles.sectionTitle}>Order Details</h2>
 
             <div style={styles.fields}>
@@ -117,7 +117,7 @@ export default function OrderCalculator() {
           </div>
 
           {/* Calculation panel */}
-          <div style={styles.calcCard}>
+          <div style={styles.calcCard} className="calc-card">
             <h2 style={styles.sectionTitle}>Live Calculation</h2>
 
             {calc ? (
@@ -243,9 +243,8 @@ const styles = {
   title: { fontSize: '24px', fontWeight: '600', color: '#0F172A', marginBottom: '8px' },
   subtitle: { fontSize: '14px', color: '#64748B', maxWidth: '420px' },
   main: { maxWidth: '1100px', margin: '0 auto', padding: '32px' },
-  layout: { display: 'flex', gap: '24px', alignItems: 'flex-start' },
+  layout: {},
   formCard: {
-    flex: 1,
     background: '#FFFFFF',
     border: '1px solid #E2E8F0',
     borderRadius: '12px',
@@ -253,8 +252,6 @@ const styles = {
     boxShadow: '0 0 0 3px rgba(37,99,235,0.05)',
   },
   calcCard: {
-    width: '340px',
-    flexShrink: 0,
     background: '#FFFFFF',
     border: '1px solid #BFDBFE',
     borderRadius: '12px',

@@ -52,7 +52,7 @@ export default function OrderResult() {
         <div style={styles.layout} className="two-col-layout">
 
           {/* Left column */}
-          <div style={styles.leftCol}>
+          <div style={styles.leftCol} className="left-col">
 
             {/* Order details */}
             <div style={styles.card}>
@@ -92,7 +92,7 @@ export default function OrderResult() {
           </div>
 
           {/* Right column — documents */}
-          <div style={styles.rightCol}>
+          <div style={styles.rightCol} className="right-col">
             <div style={styles.card}>
               <h2 style={styles.cardTitle}>Generate Documents</h2>
               <p style={styles.docsSubtitle}>Select a document to generate for this order.</p>
@@ -236,9 +236,9 @@ const styles = {
     transition: 'border-color 0.15s',
   },
   main: { maxWidth: '1100px', margin: '0 auto', padding: '32px' },
-  layout: { display: 'flex', gap: '24px', alignItems: 'flex-start' },
-  leftCol: { flex: 1, display: 'flex', flexDirection: 'column', gap: '24px' },
-  rightCol: { width: '340px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '24px' },
+  layout: {},
+  leftCol: {},
+  rightCol: {},
   card: {
     background: '#FFFFFF',
     border: '1px solid #E2E8F0',
