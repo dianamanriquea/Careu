@@ -28,9 +28,6 @@ export default function Header() {
           <NavLink to="/order-calculator" style={({ isActive }) => ({ ...styles.navLink, color: isActive ? '#0F172A' : '#64748B', fontWeight: isActive ? '600' : '400' })}>
             Order Calculator
           </NavLink>
-          <NavLink to="/orders" style={({ isActive }) => ({ ...styles.navLink, color: isActive ? '#0F172A' : '#64748B', fontWeight: isActive ? '600' : '400' })}>
-            Orders
-          </NavLink>
           <div style={styles.divider} />
           <div style={styles.userArea}>
             <div style={styles.avatar}>SC</div>
@@ -55,7 +52,6 @@ export default function Header() {
         <div style={styles.mobileMenu} className="mobile-menu">
           <MobileNavLink to="/fee-management" onClick={() => setMenuOpen(false)}>Edit Rates</MobileNavLink>
           <MobileNavLink to="/order-calculator" onClick={() => setMenuOpen(false)}>Order Calculator</MobileNavLink>
-          <MobileNavLink to="/orders" onClick={() => setMenuOpen(false)}>Orders</MobileNavLink>
           <div style={styles.mobileDivider} />
           <div style={styles.mobileUserRow}>
             <div style={styles.avatar}>SC</div>
