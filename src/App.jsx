@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AppProvider, useApp } from './context/AppContext';
 import Login from './pages/Login';
+import Orders from './pages/Orders';
 import Dashboard from './pages/Dashboard';
 import FeeManagement from './pages/FeeManagement';
 import OrderCalculator from './pages/OrderCalculator';
@@ -20,6 +21,7 @@ function AppRoutes() {
       <Route path="/fee-management" element={<ProtectedRoute><FeeManagement /></ProtectedRoute>} />
       <Route path="/order-calculator" element={<ProtectedRoute><OrderCalculator /></ProtectedRoute>} />
       <Route path="/order-result" element={<ProtectedRoute><OrderResult /></ProtectedRoute>} />
+      <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
