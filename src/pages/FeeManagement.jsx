@@ -7,21 +7,27 @@ const TABS = ['Products', 'Fee Schedules', 'Vendors'];
 
 export default function FeeManagement() {
   const isMobile = useWindowWidth() < 768;
-  const { products, setProducts, schedules, setSchedules, vendors, setVendors } = useApp();
+  const { products, setProducts, schedules, setSchedules, vendors, setVendors, changeLog, logChange } = useApp();
   const [activeTab, setActiveTab] = useState('Products');
   const [search, setSearch] = useState('');
   const [modal, setModal] = useState(null);
 
   function openModal(type, id, value) {
-    setModal({ type, id, value });
+    setModal({ type, id, value, oldValue: value });
   }
 
   function saveModal() {
     if (modal.type === 'product') {
+      const product = products.find(x => x.id === modal.id);
+      logChange({ tab: 'Products', field: product ? product.name + ' — Cost' : modal.id, oldValue: '$' + parseFloat(modal.oldValue).toFixed(2), newValue: '$' + parseFloat(modal.value).toFixed(2) });
       setProducts(p => p.map(x => x.id === modal.id ? { ...x, cost: parseFloat(modal.value) } : x));
     } else if (modal.type === 'schedule') {
+      const schedule = schedules.find(x => x.id === modal.id);
+      logChange({ tab: 'Fee Schedules', field: schedule ? schedule.payer + ' — Rate' : modal.id, oldValue: parseFloat(modal.oldValue).toFixed(2) + 'x', newValue: parseFloat(modal.value).toFixed(2) + 'x' });
       setSchedules(s => s.map(x => x.id === modal.id ? { ...x, multiplier: parseFloat(modal.value) } : x));
     } else if (modal.type === 'vendor') {
+      const vendor = vendors.find(x => x.id === modal.id);
+      logChange({ tab: 'Vendors', field: vendor ? vendor.name + ' — Status' : modal.id, oldValue: modal.oldValue, newValue: modal.value });
       setVendors(v => v.map(x => x.id === modal.id ? { ...x, status: modal.value } : x));
     }
     setModal(null);
@@ -135,6 +141,8 @@ export default function FeeManagement() {
             />
           )}
         </div>
+
+        <ChangeHistory entries={changeLog.filter(e => e.tab === activeTab).slice(0, 10)} />
       </main>
 
       {modal && (
@@ -145,6 +153,40 @@ export default function FeeManagement() {
           onCancel={() => setModal(null)}
         />
       )}
+    </div>
+  );
+}
+
+function ChangeHistory({ entries }) {
+  if (entries.length === 0) return null;
+  return (
+    <div style={styles.historyCard}>
+      <h3 style={styles.historyTitle}>Change History</h3>
+      <div style={{ overflowX: 'auto' }}>
+        <table style={styles.table}>
+          <thead>
+            <tr style={{ background: '#F8FAFC' }}>
+              {['Date / Time', 'User', 'Field', 'Old Value', 'New Value'].map(h => (
+                <th key={h} style={styles.th}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {entries.map((e, i) => {
+              const date = new Date(e.timestamp).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+              return (
+                <tr key={i} style={{ background: i % 2 !== 0 ? '#F8FAFC' : '#FFFFFF' }}>
+                  <td style={{ ...styles.td, color: '#64748B', fontSize: '13px' }}>{date}</td>
+                  <td style={styles.td}>{e.user}</td>
+                  <td style={styles.td}>{e.field}</td>
+                  <td style={{ ...styles.td, color: '#DC2626' }}>{e.oldValue}</td>
+                  <td style={{ ...styles.td, color: '#16A34A', fontWeight: '600' }}>{e.newValue}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
@@ -439,6 +481,24 @@ const styles = {
     color: '#0F172A',
     cursor: 'pointer',
     transition: 'background 0.15s',
+  },
+  historyCard: {
+    marginTop: '32px',
+    background: '#FFFFFF',
+    border: '1px solid #E2E8F0',
+    borderRadius: '8px',
+    overflow: 'hidden',
+    boxShadow: '0 0 0 3px rgba(37,99,235,0.05)',
+  },
+  historyTitle: {
+    fontSize: '13px',
+    fontWeight: '600',
+    color: '#64748B',
+    letterSpacing: '0.06em',
+    textTransform: 'uppercase',
+    padding: '14px 16px',
+    borderBottom: '1px solid #E2E8F0',
+    margin: 0,
   },
   saveBtn: {
     background: '#2563EB',

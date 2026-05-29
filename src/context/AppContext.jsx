@@ -20,6 +20,7 @@ export function AppProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(() => localStorage.getItem('careu_auth') === 'true');
   const [lastOrder, setLastOrderState] = useState(() => load('careu_last_order', null));
   const [orders, setOrdersState] = useState(() => load('careu_orders', []));
+  const [changeLog, setChangeLogState] = useState(() => load('careu_changelog', []));
   const [products, setProductsState] = useState(() => load('careu_products', seedProducts));
   const [schedules, setSchedulesState] = useState(() => load('careu_schedules', seedSchedules));
   const [vendors, setVendorsState] = useState(() => load('careu_vendors', seedVendors));
@@ -32,6 +33,12 @@ export function AppProvider({ children }) {
   function logout() {
     localStorage.removeItem('careu_auth');
     setIsLoggedIn(false);
+  }
+
+  function logChange(entry) {
+    const next = [{ ...entry, timestamp: new Date().toISOString(), user: 'Dr. Sarah Chen' }, ...changeLog].slice(0, 50);
+    save('careu_changelog', next);
+    setChangeLogState(next);
   }
 
   function setLastOrder(order) {
@@ -61,7 +68,7 @@ export function AppProvider({ children }) {
   }
 
   return (
-    <AppContext.Provider value={{ isLoggedIn, login, logout, products, setProducts, schedules, setSchedules, vendors, setVendors, lastOrder, setLastOrder, orders }}>
+    <AppContext.Provider value={{ isLoggedIn, login, logout, products, setProducts, schedules, setSchedules, vendors, setVendors, lastOrder, setLastOrder, orders, changeLog, logChange }}>
       {children}
     </AppContext.Provider>
   );
