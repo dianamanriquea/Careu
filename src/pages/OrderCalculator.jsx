@@ -117,7 +117,7 @@ export default function OrderCalculator() {
           </div>
 
           {/* Calculation panel */}
-          <div style={{ ...styles.calcCard, width: isMobile ? '100%' : '340px' }}>
+          <div style={{ ...styles.calcCard, width: isMobile ? '100%' : '340px', flexShrink: isMobile ? 1 : 0, minWidth: 0 }}>
             <h2 style={styles.sectionTitle}>Live Calculation</h2>
 
             {calc ? (
