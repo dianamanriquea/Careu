@@ -1,7 +1,18 @@
 function openDocument(html) {
   const win = window.open('', '_blank');
-  win.document.write(html);
-  win.document.close();
+  if (win && win.document) {
+    win.document.write(html);
+    win.document.close();
+  } else {
+    // Fallback for browsers that block popups: download as HTML file
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'careu-document.html';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 }
 
 const baseStyles = `
